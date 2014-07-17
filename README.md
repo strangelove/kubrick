@@ -23,7 +23,7 @@ To stick to this synonym, `kubrick` features `scenes`, `stages` and of course
 `kubrick` allows you to specify your animations in a regular javascript
 array/object specification that looks a bit like this:
 
-```json
+```js
 [
 	{
 		stage: '.mood',
