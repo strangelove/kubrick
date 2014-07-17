@@ -1,0 +1,18 @@
+{
+	"name": "kubrick-js",
+	"version": "0.1.0",
+	"description": "parallax scrolling",
+	"main": "index.js",
+	"author": "Strangelove",
+	"repository": {
+		"type": "git",
+		"url": "git@github.com:strangelove/kubrick.git"
+	},
+	"bugs": {
+		"url": "https://github.com/strangelove/kubrick/issues"
+	},
+	"homepage": "https://github.com/strangelove/kubrick",
+	"dependencies": {
+		"mout": "0.9"
+	}
+}
