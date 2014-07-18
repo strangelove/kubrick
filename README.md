@@ -9,6 +9,10 @@ concise manner.
 [wrapup][wrapup] or [browserify][browserify] in your build process to make it
 available in the browser.
 
+```bash
+$ npm install kubrick-js
+```
+
 ## What's in a name?
 
 As our company name would suggest, [Strangelove][strangelove] are fans of
@@ -66,4 +70,6 @@ The way that this works is that native scrolling is disabled the distance you
 have moved with your finger is instead used to do the animations.
 
 [npm]: https://www.npmjs.org/
+[wrapup]: https://github.com/mootools/wrapup
+[browserify]: https://github.com/substack/node-browserify
 [strangelove]: http://strangelove.nl/
