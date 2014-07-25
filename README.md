@@ -61,6 +61,27 @@ means you are limited to: `translateX`, `translateY`, `translateZ`, `rotate`,
 cause animating anything else has a high chance of causing the page to become
 "janky".
 
+## Choose your easing
+
+`kubrick` also supports choosing which easing equation you want to use for any
+`scene`. However, currently only two equations are built in: `linear` and
+`easeInOutQuad`, of which the latter is the default. More easings will be added
+later.
+
+You can specify your easing by simply adding it to the definition of a `scene`,
+through the `easing` key.
+
+```js
+[
+  {
+    stage: '.mood',
+    duration: '100%',
+    easing: 'linear',
+    actors: []
+  }
+]
+```
+
 ## Support for touch devices
 
 Kubrick has (not very well tested) support for touch devices. It has been tested

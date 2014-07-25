@@ -3,13 +3,10 @@
 var isArray = require('mout/lang/isArray'),
 	isString = require('mout/lang/isString'),
 	getPrefix = require('./lib/getprefix'),
-	getScrollTop = require('./lib/getscrolltop');
+	getScrollTop = require('./lib/getscrolltop'),
+	easing = require('./easing');
 
 var prefix = getPrefix();
-
-var easeInOutQuad = function (t, b, c, d) {
-	return -c / 2 * (Math.cos(Math.PI * t / d) - 1) + b;
-};
 
 /**
  * Kubrick
@@ -62,6 +59,10 @@ Kubrick.prototype.addScenes = function(scenes){
 
 		stage = scenes[i].stage ? document.querySelector(scenes[i].stage) : null;
 		scenes[i].stage = stage;
+
+		if (!scenes[i].easing || !easing[scenes[i].easing]){
+			scenes[i].easing = 'easeInOutQuad';
+		}
 
 		if (scenes[i].actors && scenes[i].actors.length){
 			actors = [];
@@ -293,7 +294,12 @@ Kubrick.prototype.calculateValue = function(prop, value){
 		return this.getDefaultValue(prop);
 	}
 
-	return easeInOutQuad(this.progress, value[0], value[1] - value[0], this.scenes[this.currentScene].total);
+	return easing[this.scenes[this.currentScene].easing](
+		this.progress,
+		value[0],
+		value[1] - value[0],
+		this.scenes[this.currentScene].total
+	);
 };
 
 module.exports = Kubrick;
