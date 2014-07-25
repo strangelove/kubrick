@@ -89,6 +89,41 @@ As an added extra, you can also access `kubrick`'s easing functions by
 var easeInOutQuad = require('kubrick-js/easing/easeInOutQuad');
 ```
 
+## Custom callbacks
+
+Sometimes you might want to do something a bit exotic based on scroll position,
+like animating a PNG sequence or so, or animating a property which is not
+supported in kubrick's core. In cases like this, it's handy to use a custom
+callback.
+
+For example, to animate an element's width, we might do something that looks a
+bit like this:
+
+```js
+[
+  {
+    stage: '.brand',
+    duration: '100%',
+    actors: [
+      {
+        element: '.logo-overlay',
+        callback: function(progress, duration){
+          this.style.width = easeInOutQuad((duration / 100) * progress, 0, 700, duration) + 'px';
+        }
+      }
+    ]
+  },
+]
+```
+
+As you can see, the callback function gets passed 2 parameters - `progress` and
+`duration`.
+
+- `progress` is a percentage which indicates how far through the animation we
+  are.
+- `duration` is an integer which is the duration converted to pixels, based on
+  window height
+
 ## Support for touch devices
 
 Kubrick has (not very well tested) support for touch devices. It has been tested

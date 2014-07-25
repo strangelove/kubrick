@@ -71,7 +71,7 @@ Kubrick.prototype.addScenes = function(scenes){
 
 				for (prop in actor){
 					if (prop == 'element' || !actor.hasOwnProperty(prop)) continue;
-					if (!isArray(actor[prop])){
+					if (!isArray(actor[prop]) && prop !== 'callback'){
 						actor[prop] = [this.getDefaultValue(prop), actor[prop]];
 					}
 				}
@@ -216,7 +216,7 @@ Kubrick.prototype.getDefaultValue = function(prop){
  * Determine which scene is currently showing
  */
 Kubrick.prototype.setScene = function(){
-	var i, len = this.scenes.length, curStage, nextStage, modifier, j, k, l, actor, props, prop, value;
+	var i, len = this.scenes.length, curStage, nextStage, modifier, j, scene, k, l, actor, props, prop, value;
 	for (i = 0; i < len; i++){
 		if (this.scrollTop >= this.scenes[i].start && this.scrollTop <= this.scenes[i].end){
 			if (i == this.currentScene) break;
@@ -235,21 +235,26 @@ Kubrick.prototype.setScene = function(){
 
 			for (j = this.currentScene; ; j += modifier){
 				if (j == i) break;
-				if (!this.scenes[j] || !this.scenes[j].actors || !this.scenes[j].actors.length) continue;
-				for (k = 0; k < this.scenes[j].actors.length; k++){
-					actor = this.scenes[j].actors[k];
-					props = {};
-					for (l = 0; l < this.properties.length; l++){
-						prop = this.properties[l];
-						value = actor[prop];
+				scene = this.scenes[j];
+				if (!scene || !scene.actors || !scene.actors.length) continue;
+				for (k = 0; k < scene.actors.length; k++){
+					actor = scene.actors[k];
+					if (actor.callback){
+						actor.callback.call(actor.element, modifier == -1 ? 0 : 100, scene.total);
+					} else {
+						props = {};
+						for (l = 0; l < this.properties.length; l++){
+							prop = this.properties[l];
+							value = actor[prop];
 
-						if (value){
-							props[prop] = actor[prop][modifier == -1 ? 0 : 1];
-						} else {
-							props[prop] = this.getDefaultValue(prop);
+							if (value){
+								props[prop] = actor[prop][modifier == -1 ? 0 : 1];
+							} else {
+								props[prop] = this.getDefaultValue(prop);
+							}
 						}
+						this.applyStyles(actor.element, props);
 					}
-					this.applyStyles(actor.element, props);
 				}
 			}
 
@@ -270,13 +275,17 @@ Kubrick.prototype.action = function(){
 	var i, len = current.actors.length, j, prop, props = {};
 
 	for (i = 0; i < len; i++){
-		for (j = 0; j < this.properties.length; j++){
-			prop = this.properties[j];
+		if (current.actors[i].callback){
+			current.actors[i].callback.call(current.actors[i].element, (100 / current.total) * this.progress, current.total);
+		} else {
+			for (j = 0; j < this.properties.length; j++){
+				prop = this.properties[j];
 
-			props[prop] = this.calculateValue(prop, current.actors[i][prop]);
+				props[prop] = this.calculateValue(prop, current.actors[i][prop]);
+			}
+
+			this.applyStyles(current.actors[i].element, props);
 		}
-
-		this.applyStyles(current.actors[i].element, props);
 	}
 };
 
