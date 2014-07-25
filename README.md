@@ -85,7 +85,7 @@ through the `easing` key.
 As an added extra, you can also access `kubrick`'s easing functions by
 `require`ing them into your own code, like so:
 
-```
+```js
 var easeInOutQuad = require('kubrick-js/easing/easeInOutQuad');
 ```
 
