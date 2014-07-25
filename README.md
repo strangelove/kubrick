@@ -28,7 +28,7 @@ To stick to this synonym, `kubrick` features `scenes`, `stages` and of course
 array/object specification that looks a bit like this:
 
 ```js
-[
+require('kubrick-js')([
 	{
 		stage: '.mood',
 		duration: '100%',
@@ -48,7 +48,7 @@ array/object specification that looks a bit like this:
 			}
 		]
 	}
-]
+]);
 ```
 
 Each object in the array is a `scene`, each `scene` has a `stage` which is
@@ -80,6 +80,13 @@ through the `easing` key.
     actors: []
   }
 ]
+```
+
+As an added extra, you can also access `kubrick`'s easing functions by
+`require`ing them into your own code, like so:
+
+```
+var easeInOutQuad = require('kubrick-js/easing/easeInOutQuad');
 ```
 
 ## Support for touch devices
