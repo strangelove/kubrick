@@ -88,7 +88,6 @@ Kubrick.prototype.addScenes = function(scenes){
  * Set the scene
  */
 Kubrick.prototype.setup = function(){
-	this.setScrollTop();
 	this.windowWidth = window.innerWidth;
 	this.windowHeight = window.innerHeight;
 	this.setTouchEvents();
@@ -156,12 +155,18 @@ Kubrick.prototype.init = function(){
 		scene.total = Math.ceil(this.percentToPx(scene.duration, 'y'));
 		start += scene.total;
 		scene.end = start;
+	}
 
+	start += this.windowHeight;
+	this.scenes[this.scenes.length - 1].end = start;
+	document.body.style.height = (start) + 'px';
+	this.setScrollTop();
+
+	for (i = 0; i < len; i++){
+		scene = this.scenes[i];
 		if (this.scrollTop < scene.start || this.scrollTop > scene.end){
 			scene.stage.style.display = 'none';
-		} /*else {
-			this.currentScene = i;
-		}*/
+		}
 
 		if (!scene.actors || !scene.actors.length) continue;
 
@@ -179,10 +184,6 @@ Kubrick.prototype.init = function(){
 			}
 		}
 	}
-
-	start += this.windowHeight;
-	this.scenes[this.scenes.length - 1].end = start;
-	document.body.style.height = (start) + 'px';
 };
 
 /**
