@@ -112,7 +112,7 @@ bit like this:
         }
       }
     ]
-  },
+  }
 ]
 ```
 
@@ -123,6 +123,9 @@ As you can see, the callback function gets passed 2 parameters - `progress` and
   are.
 - `duration` is an integer which is the duration converted to pixels, based on
   window height
+
+In addition to these parameters, `this` gets bound to the element being
+animated.
 
 ## Support for touch devices
 
