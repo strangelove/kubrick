@@ -2,11 +2,9 @@
 
 var isArray = require('mout/lang/isArray'),
 	isString = require('mout/lang/isString'),
-	getPrefix = require('./lib/getprefix'),
-	getScrollTop = require('./lib/getscrolltop'),
+	getScrollTop = require('./lib/scrolltop'),
+	prefix = require('./lib/vendorprefix')(),
 	easing = require('./easing');
-
-var prefix = getPrefix();
 
 /**
  * Kubrick
