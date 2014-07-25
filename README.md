@@ -90,7 +90,16 @@ on a few Android and iOS devices and it works well, but that's about it.
 The way that this works is that native scrolling is disabled the distance you
 have moved with your finger is instead used to do the animations.
 
+## Inspired
+
+`kubrick` was developed at [Strangelove][strangelove] after seeing Dave
+Gamache's awesome [parallax demo][demo] and reading the excellent [accompanying
+article][article] on Medium. Without his insights it would not exist today.
+Thanks Dave!
+
 [npm]: https://www.npmjs.org/
 [wrapup]: https://github.com/mootools/wrapup
 [browserify]: https://github.com/substack/node-browserify
 [strangelove]: http://strangelove.nl/
+[demo]: http://davegamache.com/parallax/
+[article]: https://medium.com/@dhg/parallax-done-right-82ced812e61c
