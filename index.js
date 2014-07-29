@@ -164,7 +164,7 @@ Kubrick.prototype.init = function(){
 
 	for (i = 0; i < len; i++){
 		scene = this.scenes[i];
-		if (this.scrollTop < scene.start || this.scrollTop > scene.end){
+		if ((this.scrollTop < scene.start || this.scrollTop > scene.end) && scene.stage){
 			scene.stage.style.display = 'none';
 		}
 
@@ -222,13 +222,15 @@ Kubrick.prototype.setScene = function(){
 			if (i == this.currentScene) break;
 
 			curStage = this.currentScene > -1 ? this.scenes[this.currentScene].stage : null;
-			nextStage = this.scenes[i].stage.style;
+			nextStage = this.scenes[i].stage;
 
 			if (curStage != nextStage){
 				if (curStage){
 					this.scenes[this.currentScene].stage.style.display = 'none';
 				}
-				this.scenes[i].stage.style.display = 'block';
+				if (nextStage){
+					this.scenes[i].stage.style.display = 'block';
+				}
 			}
 
 			modifier = i - this.currentScene > 0 ? 1 : -1;
