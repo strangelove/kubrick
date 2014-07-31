@@ -178,7 +178,7 @@ Kubrick.prototype.init = function(){
 				value = actor[prop];
 				for (k = 0; k < value.length; k++){
 					if (isString(value[k])){
-						value[k] = this.percentToPx(value[k], prop = 'translateX' ? 'x' : 'y');
+						value[k] = this.percentToPx(value[k], prop == 'translateX' ? 'x' : 'y');
 					}
 				}
 			}
