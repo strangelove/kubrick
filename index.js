@@ -304,12 +304,18 @@ Kubrick.prototype.calculateValue = function(prop, value){
 		return this.getDefaultValue(prop);
 	}
 
-	return easing[this.scenes[this.currentScene].easing](
+	var num = easing[this.scenes[this.currentScene].easing](
 		this.progress,
 		value[0],
 		value[1] - value[0],
 		this.scenes[this.currentScene].total
 	);
+
+	if (prop == 'translateX' || prop == 'translateY'){
+		num = Math.round(num);
+	}
+
+	return num;
 };
 
 module.exports = Kubrick;
