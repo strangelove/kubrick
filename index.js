@@ -2,6 +2,7 @@
 
 var isArray = require('mout/lang/isArray'),
 	isString = require('mout/lang/isString'),
+	debounce = require('mout/function/debounce'),
 	getScrollTop = require('./lib/scrolltop'),
 	prefix = require('./lib/vendorprefix')(),
 	easing = require('./easing');
@@ -22,17 +23,31 @@ var Kubrick = function(scenes){
 	this.movedTotal = 0;
 	this.setup();
 
-	var self = this;
-	setInterval(function(){
-		window.requestAnimationFrame(function(){
-			self.setScrollTop();
+	var self = this,
+		animate = function(){
+			window.requestAnimationFrame(function(){
+				self.setScrollTop();
 
-			if (self.scrollTop > -1){
-				self.setScene();
-				self.action();
+				if (self.scrollTop > -1){
+					self.setScene();
+					self.action();
+				}
+			});
+		},
+		clear = function(){
+			if (self.intervalId){
+				console.log('clearing interval...');
+				clearInterval(self.intervalId);
+				self.intervalId = null;
 			}
-		});
-	}, 10);
+		},
+		scrollFn = function(){
+			if (self.intervalId) return;
+			self.intervalId = setInterval(animate, 10);
+		};
+
+	window.addEventListener('scroll', scrollFn);
+	window.addEventListener('scroll', debounce(clear, 300));
 };
 
 /**
