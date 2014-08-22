@@ -36,7 +36,6 @@ var Kubrick = function(scenes){
 		},
 		clear = function(){
 			if (self.intervalId){
-				console.log('clearing interval...');
 				clearInterval(self.intervalId);
 				self.intervalId = null;
 			}
