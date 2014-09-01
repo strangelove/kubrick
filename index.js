@@ -162,7 +162,7 @@ Kubrick.prototype.setScrollTop = function(){
  * Initial setup
  */
 Kubrick.prototype.init = function(){
-	var start = 0, i, len = this.scenes.length, scene, j, actor, prop, value, k;
+	var start = 0, i, len = this.scenes.length, scene, j, actor, prop, value, k, num;
 	for (i = 0; i < len; i++){
 		scene = this.scenes[i];
 		scene.start = start;
@@ -192,7 +192,11 @@ Kubrick.prototype.init = function(){
 				value = actor[prop];
 				for (k = 0; k < value.length; k++){
 					if (isString(value[k])){
-						value[k] = this.percentToPx(value[k], prop == 'translateX' ? 'x' : 'y');
+						num = this.percentToPx(value[k], prop == 'translateX' ? 'x' : 'y');
+						if (prop == 'translateX' || prop == 'translateY'){
+							num = Math.round(num);
+						}
+						value[k] = num;
 					}
 				}
 			}
