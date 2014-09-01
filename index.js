@@ -5,7 +5,7 @@ var isArray = require('mout/lang/isArray'),
 	debounce = require('mout/function/debounce'),
 	getScrollTop = require('./lib/scrolltop'),
 	prefix = require('./lib/vendorprefix')(),
-	easing = require('./easing');
+	easingFn = require('./easing');
 
 /**
  * Kubrick
@@ -72,7 +72,7 @@ Kubrick.prototype.addScenes = function(scenes){
 		stage = scenes[i].stage ? document.querySelector(scenes[i].stage) : null;
 		scenes[i].stage = stage;
 
-		if (!scenes[i].easing || !easing[scenes[i].easing]){
+		if (!scenes[i].easing || !easingFn[scenes[i].easing]){
 			scenes[i].easing = 'easeInOutQuad';
 		}
 
@@ -318,7 +318,7 @@ Kubrick.prototype.calculateValue = function(prop, value){
 		return this.getDefaultValue(prop);
 	}
 
-	var num = easing[this.scenes[this.currentScene].easing](
+	var num = easingFn[this.scenes[this.currentScene].easing](
 		this.progress,
 		value[0],
 		value[1] - value[0],
